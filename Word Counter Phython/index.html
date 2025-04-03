@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Counter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('https://img.freepik.com/premium-photo/random-wooden-letter-frame-green-paper-background_650503-72.jpg');
+            background-size: cover;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+        textarea {
+            width: 90%;
+            height: 60px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: none;
+            text-align: center;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .count-btn {
+            background-color: #28a745;
+            color: white;
+        }
+        .clear-btn {
+            background-color: #dc3545;
+            color: white;
+        }
+        .exit-btn {
+            background-color: #ffc107;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Word Counter</h2>
+        <textarea id="textInput" placeholder="Enter text..."></textarea>
+        <br>
+        <button class="count-btn" onclick="countWords()">Count Words</button>
+        <button class="clear-btn" onclick="clearText()">Clear</button>
+        <button class="exit-btn" onclick="exitProgram()">Exit</button>
+        <p id="wordCount">Word count: 0</p>
+        <p id="alphabetCount">Alphabet count: 0</p>
+        <p id="numberCount">Number count: 0</p>
+    </div>
+
+    <script>
+        function countWords() {
+            let text = document.getElementById("textInput").value.trim();
+            let wordCount = 0;
+            let alphabetCount = 0;
+            let numberCount = 0;
+
+            if (text === "") {
+                document.getElementById("wordCount").innerText = "Word count: 0";
+                document.getElementById("alphabetCount").innerText = "Alphabet count: 0";
+                document.getElementById("numberCount").innerText = "Number count: 0";
+                return;
+            }
+
+            let words = text.split(/\s+/); // Split by spaces to count words
+            wordCount = words.length;
+
+            // Count alphabets and numbers
+            for (let word of words) {
+                for (let char of word) {
+                    if (/[a-zA-Z]/.test(char)) {
+                        alphabetCount++;
+                    } else if (/[0-9]/.test(char)) {
+                        numberCount++;
+                    }
+                }
+            }
+
+            document.getElementById("wordCount").innerText = "Word count: " + wordCount;
+            document.getElementById("alphabetCount").innerText = "Alphabet count: " + alphabetCount;
+            document.getElementById("numberCount").innerText = "Number count: " + numberCount;
+        }
+
+        function clearText() {
+            document.getElementById("textInput").value = "";
+            document.getElementById("wordCount").innerText = "Word count: 0";
+            document.getElementById("alphabetCount").innerText = "Alphabet count: 0";
+            document.getElementById("numberCount").innerText = "Number count: 0";
+        }
+
+        function exitProgram() {
+            // Hide all elements when exit button is clicked
+            document.body.innerHTML = "<h1>Exiting the program. Goodbye!</h1>";
+            setTimeout(() => {
+                window.close(); // Attempt to close the window
+            }, 2000); // Wait for 2 seconds before attempting to close
+        }
+    </script>
+</body>
+</html>
